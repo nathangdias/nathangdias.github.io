@@ -13,6 +13,11 @@
     --system-100: #f5f6f4;
 }
 
+::selection {
+    background: var(--primary-color);
+    color: var(--system-500);
+}
+
 @font-face {
     font-family: "NathanDiatype";
     src:
@@ -160,10 +165,10 @@ footer p {
 
 @keyframes gradientAnimation {
     0% {
-        background-position: 0;
+        background-position: 200% center;
     }
-    to {
-        background-position: 200%;
+    100% {
+        background-position: -200% center;
     }
 }
 
