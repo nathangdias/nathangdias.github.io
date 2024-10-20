@@ -57,6 +57,7 @@ h1 {
 .subtext {
     max-width: 22.5rem;
     margin-top: 0.5rem;
+    text-wrap: pretty;
 }
 
 .button {
