@@ -3,6 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦖</text></svg>"
+        />
         <title>Nathan Dias Product Designer</title>
         <meta
             name="description"
@@ -69,6 +73,12 @@
                     />
                 </svg>
             </a>
+            <audio id="hoverSound">
+                <source src="sfx/hover.aac" type="audio/aac" />
+            </audio>
+            <audio id="clickSound">
+                <source src="sfx/click.aac" type="audio/aac" />
+            </audio>
         </header>
 
         <section class="container">
@@ -189,5 +199,29 @@
                 ></a>
             </div>
         </footer>
+
+        <script>
+            const links = document.querySelectorAll("a");
+            const hoverSound = document.getElementById("hoverSound");
+            const clickSound = document.getElementById("clickSound");
+
+            links.forEach((link) => {
+                link.addEventListener("mouseenter", () => {
+                    hoverSound.currentTime = 0;
+                    hoverSound.play();
+                });
+
+                link.addEventListener("click", (event) => {
+                    event.preventDefault(); // Prevent the default link behavior
+                    clickSound.currentTime = 0;
+                    clickSound.play();
+
+                    // Optional: Navigate to the link after the sound plays
+                    clickSound.onended = () => {
+                        window.location.href = link.href;
+                    };
+                });
+            });
+        </script>
     </body>
 </html>
