@@ -216,11 +216,16 @@
                 });
 
                 link.addEventListener("click", (event) => {
-                    event.preventDefault(); // Prevent the default link behavior
                     clickSound.currentTime = 0;
                     clickSound.play();
 
-                    // Optional: Navigate to the link after the sound plays
+                    if (link.href.startsWith("mailto:")) {
+                        // For email links, don't prevent default and open immediately
+                        return;
+                    }
+
+                    // For all other links
+                    event.preventDefault();
                     clickSound.onended = () => {
                         window.location.href = link.href;
                     };
