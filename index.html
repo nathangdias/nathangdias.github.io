@@ -73,12 +73,6 @@
                     />
                 </svg>
             </a>
-            <audio id="hoverSound">
-                <source src="sfx/hover.aac" type="audio/aac" />
-            </audio>
-            <audio id="clickSound">
-                <source src="sfx/click.aac" type="audio/aac" />
-            </audio>
         </header>
 
         <section class="container">
@@ -94,17 +88,11 @@
                 </p>
             </div>
             <div class="slider">
-                <video autoplay muted loop playsinline>
+                <video muted loop playsinline>
                     <source src="imgs/polywork.webm" type="video/webm" />
                 </video>
-                <video autoplay muted loop playsinline>
+                <video muted loop playsinline>
                     <source src="imgs/commenting.webm" type="video/webm" />
-                </video>
-                <video autoplay muted loop playsinline>
-                    <source src="imgs/mobile.webm" type="video/webm" />
-                </video>
-                <video autoplay muted loop playsinline>
-                    <source src="imgs/Expand-Atlas.mp4" type="video/mp4" />
                 </video>
             </div>
 
@@ -227,108 +215,5 @@
                 ></a>
             </div>
         </footer>
-
-        <script>
-            const links = document.querySelectorAll("a");
-            const hoverSound = document.getElementById("hoverSound");
-            const clickSound = document.getElementById("clickSound");
-
-            links.forEach((link) => {
-                link.addEventListener("mouseenter", () => {
-                    hoverSound.currentTime = 0;
-                    hoverSound.play();
-                });
-
-                link.addEventListener("click", (event) => {
-                    clickSound.currentTime = 0;
-                    clickSound.play();
-
-                    if (link.href.startsWith("mailto:")) {
-                        // For email links, don't prevent default and open immediately
-                        return;
-                    }
-
-                    // For all other links
-                    event.preventDefault();
-                    clickSound.onended = () => {
-                        window.location.href = link.href;
-                    };
-                });
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const slider = document.querySelector(".slider");
-                const prevButton =
-                    document.querySelectorAll(".slider-control")[0];
-                const nextButton =
-                    document.querySelectorAll(".slider-control")[1];
-                const videos = slider.querySelectorAll("video");
-
-                // Function to update button states
-                function updateButtonStates() {
-                    const currentScroll = slider.scrollLeft;
-
-                    // Disable prev button if at the beginning
-                    if (currentScroll <= 10) {
-                        prevButton.classList.add("disabled");
-                    } else {
-                        prevButton.classList.remove("disabled");
-                    }
-
-                    // Disable next button if at the end
-                    if (
-                        currentScroll + slider.clientWidth >=
-                        slider.scrollWidth - 10
-                    ) {
-                        nextButton.classList.add("disabled");
-                    } else {
-                        nextButton.classList.remove("disabled");
-                    }
-                }
-
-                // Initial button state
-                updateButtonStates();
-
-                // Listen for scroll events to update button states
-                slider.addEventListener("scroll", updateButtonStates);
-
-                prevButton.addEventListener("click", () => {
-                    // Find current scroll position
-                    const currentScroll = slider.scrollLeft;
-                    const slideWidth = videos[0].clientWidth + 24; // width + gap (1.5rem = 24px)
-
-                    // Calculate previous position (one full slide width left)
-                    const targetScroll = Math.max(
-                        0,
-                        currentScroll - slideWidth,
-                    );
-
-                    // Scroll to the target
-                    slider.scrollTo({
-                        left: targetScroll,
-                        behavior: "smooth",
-                    });
-                });
-
-                nextButton.addEventListener("click", () => {
-                    // Find current scroll position
-                    const currentScroll = slider.scrollLeft;
-                    const slideWidth = videos[0].clientWidth + 24; // width + gap (1.5rem = 24px)
-
-                    // Calculate next position (one full slide width right)
-                    const maxScroll = slider.scrollWidth - slider.clientWidth;
-                    const targetScroll = Math.min(
-                        maxScroll,
-                        currentScroll + slideWidth,
-                    );
-
-                    // Scroll to the target
-                    slider.scrollTo({
-                        left: targetScroll,
-                        behavior: "smooth",
-                    });
-                });
-            });
-        </script>
     </body>
 </html>

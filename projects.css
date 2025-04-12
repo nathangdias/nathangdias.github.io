@@ -31,19 +31,72 @@
     width: 100vw;
     margin-left: calc(50% - 50vw);
     scroll-padding: 0 calc((100vw - 42.5rem) / 2);
+
+    > video {
+        border-radius: 0.5rem;
+        scroll-snap-align: center;
+        flex: 0 0 auto;
+        width: 42.5rem;
+        height: 23.5rem;
+        object-fit: cover;
+
+        /* hide scrollbar */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
 }
 
-.slider video {
-    border-radius: 0.5rem;
-    scroll-snap-align: center;
-    flex: 0 0 auto;
-    width: 42.5rem;
-    height: 23.5rem;
-    object-fit: cover;
+.slider::scroll-button(*) {
+    grid-area: controls;
+    border: 0;
+    font-size: 2rem;
+    background: none;
+    color: var(--system-300);
+    cursor: pointer;
+}
 
-    /* hide scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+.slider::scroll-button(*):hover,
+.slider::scroll-button(*):focus {
+    color: var(--system-400);
+    background-color: #dfe3d6;
+}
+
+.slider::scroll-button(*):disabled {
+    color: var(--system-300);
+    opacity: 25%;
+    cursor: unset;
+}
+
+.slider::scroll-button(left) {
+    /* Set the font for this icon style */
+    font-family: "faSolid";
+    /* Set the weight for this icon style */
+    font-weight: 900;
+    /* Make sure icons render pixel-perfect */
+    -webkit-font-smoothing: antialiased;
+    content: "\f053" / "Previous";
+    font-size: 1rem;
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--system-200);
+    border-radius: 999px;
+    transition: 0.3s ease;
+}
+
+.slider::scroll-button(right) {
+    /* Set the font for this icon style */
+    font-family: "faSolid";
+    /* Set the weight for this icon style */
+    font-weight: 900;
+    /* Make sure icons render pixel-perfect */
+    -webkit-font-smoothing: antialiased;
+    content: "\f054" / "Next";
+    font-size: 1rem;
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--system-200);
+    border-radius: 999px;
+    transition: 0.3s ease;
 }
 
 .slider::before,
@@ -62,40 +115,4 @@
 .work-description p {
     grid-area: description;
     padding-bottom: 6rem;
-}
-
-.controls {
-    grid-area: controls;
-    display: grid;
-    gap: 0.25rem;
-    grid-template-columns: 2rem 2rem;
-    justify-content: end;
-}
-
-.slider-control {
-    width: 2rem;
-    height: 2rem;
-    background-color: var(--system-200);
-    color: var(--system-300);
-    border-radius: 999px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.3s ease;
-}
-
-.slider-control svg {
-    height: 1rem;
-    width: 0.625rem;
-}
-
-.slider-control:hover {
-    background-color: #dedfda;
-    color: var(--system-400);
-}
-
-.slider-control.disabled {
-    opacity: 0.5;
-    cursor: default;
-    pointer-events: none;
 }
