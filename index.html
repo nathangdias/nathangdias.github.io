@@ -83,39 +83,63 @@
 
         <section class="container">
             <div class="work">
-                <div class="cell">
-                    <p>Atlas</p>
-                    <p>YC W22</p>
+                <div class="work-title">
+                    <h2>Polywork</h2>
+                    <p class="system-300">2019 - Present</p>
                 </div>
-                <div class="cell">
-                    <p>Ascend</p>
-                    <p>YC W19</p>
-                </div>
-                <div class="cell">
-                    <p>Ciro</p>
-                    <p>YC S22</p>
-                </div>
-                <div class="cell">
-                    <p>Deasie</p>
-                    <p>YC S23</p>
-                </div>
-                <div class="cell">
-                    <p>Polywork</p>
-                    <p>a16z</p>
-                </div>
-                <div class="cell">
-                    <p>Profile.com</p>
-                    <p>Caffeinated</p>
-                </div>
-                <div class="cell">
-                    <p>Awari</p>
-                    <p>YC W21</p>
-                </div>
-                <div class="cell">
-                    <a
-                        href="mailto:hello@nathandias.design?subject=Let's work together&body=Hi Nathan, I'd like to discuss a project with you."
-                        ><p class="shimmer">Your Startup</p></a
-                    >
+                <p class="work-summary">
+                    From product design and user research to motion and hiring,
+                    I undertook a diverse array of design tasks, driving team
+                    progress through every challenge.
+                </p>
+            </div>
+            <div class="slider">
+                <video autoplay muted loop playsinline>
+                    <source src="imgs/polywork.webm" type="video/webm" />
+                </video>
+                <video autoplay muted loop playsinline>
+                    <source src="imgs/commenting.webm" type="video/webm" />
+                </video>
+                <video autoplay muted loop playsinline>
+                    <source src="imgs/mobile.webm" type="video/webm" />
+                </video>
+                <video autoplay muted loop playsinline>
+                    <source src="imgs/Expand-Atlas.mp4" type="video/mp4" />
+                </video>
+            </div>
+
+            <div class="work-description">
+                <p>
+                    As the first design hire at Polywork, I played a role in
+                    designing a consumer product that resonated with its
+                    community. I worked closely with Peter, the CEO, to
+                    collaborate with everything design.
+                </p>
+                <div class="controls">
+                    <button class="slider-control">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"
+                                fill="currentColor"
+                            />
+                        </svg>
+                    </button>
+                    <button class="slider-control">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 320 512"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+                                fill="currentColor"
+                            />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </section>
@@ -135,7 +159,7 @@
                     <div class="author-name">
                         <p>Matt Breuer</p>
                         <p>·</p>
-                        <p>Director of Product, Polywork</p>
+                        <p class="system-300">Director of Product, Polywork</p>
                     </div>
                 </div>
             </div>
@@ -229,6 +253,80 @@
                     clickSound.onended = () => {
                         window.location.href = link.href;
                     };
+                });
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const slider = document.querySelector(".slider");
+                const prevButton =
+                    document.querySelectorAll(".slider-control")[0];
+                const nextButton =
+                    document.querySelectorAll(".slider-control")[1];
+                const videos = slider.querySelectorAll("video");
+
+                // Function to update button states
+                function updateButtonStates() {
+                    const currentScroll = slider.scrollLeft;
+
+                    // Disable prev button if at the beginning
+                    if (currentScroll <= 10) {
+                        prevButton.classList.add("disabled");
+                    } else {
+                        prevButton.classList.remove("disabled");
+                    }
+
+                    // Disable next button if at the end
+                    if (
+                        currentScroll + slider.clientWidth >=
+                        slider.scrollWidth - 10
+                    ) {
+                        nextButton.classList.add("disabled");
+                    } else {
+                        nextButton.classList.remove("disabled");
+                    }
+                }
+
+                // Initial button state
+                updateButtonStates();
+
+                // Listen for scroll events to update button states
+                slider.addEventListener("scroll", updateButtonStates);
+
+                prevButton.addEventListener("click", () => {
+                    // Find current scroll position
+                    const currentScroll = slider.scrollLeft;
+                    const slideWidth = videos[0].clientWidth + 24; // width + gap (1.5rem = 24px)
+
+                    // Calculate previous position (one full slide width left)
+                    const targetScroll = Math.max(
+                        0,
+                        currentScroll - slideWidth,
+                    );
+
+                    // Scroll to the target
+                    slider.scrollTo({
+                        left: targetScroll,
+                        behavior: "smooth",
+                    });
+                });
+
+                nextButton.addEventListener("click", () => {
+                    // Find current scroll position
+                    const currentScroll = slider.scrollLeft;
+                    const slideWidth = videos[0].clientWidth + 24; // width + gap (1.5rem = 24px)
+
+                    // Calculate next position (one full slide width right)
+                    const maxScroll = slider.scrollWidth - slider.clientWidth;
+                    const targetScroll = Math.min(
+                        maxScroll,
+                        currentScroll + slideWidth,
+                    );
+
+                    // Scroll to the target
+                    slider.scrollTo({
+                        left: targetScroll,
+                        behavior: "smooth",
+                    });
                 });
             });
         </script>
