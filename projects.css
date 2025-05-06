@@ -31,7 +31,9 @@
     width: 100vw;
     margin-left: calc(50% - 50vw);
     scroll-padding: 0 calc((100vw - 42.5rem) / 2);
+    scroll-behavior: smooth;
 
+    anchor-name: --slider;
     > video {
         border-radius: 0.5rem;
         scroll-snap-align: center;
@@ -46,57 +48,25 @@
     }
 }
 
-.slider::scroll-button(*) {
+.controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
     grid-area: controls;
-    border: 0;
-    font-size: 2rem;
-    background: none;
-    color: var(--system-300);
-    cursor: pointer;
 }
 
-.slider::scroll-button(*):hover,
-.slider::scroll-button(*):focus {
-    color: var(--system-400);
-    background-color: #dfe3d6;
-}
-
-.slider::scroll-button(*):disabled {
-    color: var(--system-300);
-    opacity: 25%;
-    cursor: unset;
-}
-
-.slider::scroll-button(left) {
-    /* Set the font for this icon style */
-    font-family: "faSolid";
-    /* Set the weight for this icon style */
-    font-weight: 900;
-    /* Make sure icons render pixel-perfect */
-    -webkit-font-smoothing: antialiased;
-    content: "\f053" / "Previous";
-    font-size: 1rem;
+.slider-control {
     height: 2rem;
     width: 2rem;
-    background-color: var(--system-200);
     border-radius: 999px;
-    transition: 0.3s ease;
-}
+    background-color: var(--system-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.slider::scroll-button(right) {
-    /* Set the font for this icon style */
-    font-family: "faSolid";
-    /* Set the weight for this icon style */
-    font-weight: 900;
-    /* Make sure icons render pixel-perfect */
-    -webkit-font-smoothing: antialiased;
-    content: "\f054" / "Next";
-    font-size: 1rem;
-    height: 2rem;
-    width: 2rem;
-    background-color: var(--system-200);
-    border-radius: 999px;
-    transition: 0.3s ease;
+    > svg {
+        height: 1rem;
+    }
 }
 
 .slider::before,
@@ -109,10 +79,83 @@
     display: grid;
     grid-template-columns: 32rem auto;
     grid-template-areas: "description controls";
-    margin: 1.5rem 0 0 0;
+    margin: 1rem 0 0 0;
+    padding-bottom: 3rem;
+    min-height: 3.75rem;
+}
+
+.work-description > .slide-description {
+    grid-area: description;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: opacity 0.4s ease;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.work-description > .slide-description h3 {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(0.5rem);
+    transition: 
+        opacity 0.4s ease, 
+        filter 0.4s ease, 
+        transform 0.4s ease;
+}
+
+.work-description > .slide-description p {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(0.5rem);
+    transition: 
+        opacity 0.4s ease 0.1s, 
+        filter 0.4s ease 0.1s, 
+        transform 0.4s ease 0.1s;
+}
+
+.work-description > .slide-description.active {
+    opacity: 1;
+    overflow: visible;
+}
+
+.work-description > .slide-description.active h3,
+.work-description > .slide-description.active p {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
 }
 
 .work-description p {
-    grid-area: description;
-    padding-bottom: 6rem;
+    text-wrap: pretty;
+}
+
+@media (max-width: 600px) {
+    .work {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "title"
+            "summary";
+        gap: 1rem;
+    }
+
+    .work-summary {
+        grid-area: summary;
+        padding-top: 0rem;
+    }
+
+    .work-description {
+        grid-template-columns: 1fr;
+        grid-template-areas: "description" "controls";
+        gap: 1rem;
+    }
+
+    .controls {
+        justify-content: center;
+    }
+
+    .slider-control {
+        height: 2.5rem;
+        width: 2.5rem;
+    }
 }
